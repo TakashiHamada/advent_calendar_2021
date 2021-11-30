@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SceneManager : MonoBehaviour
@@ -19,12 +17,14 @@ public class SceneManager : MonoBehaviour
     {
     }
 
+    // UIボタンから
     public void SwitchPause()
     {
         var pause = this.transform.Find("_PAUSE").gameObject;
         pause.SetActive(!pause.activeInHierarchy);
     }
 
+    // UIボタンから
     public void ActivateSceneByIdx(int idx)
     {
         foreach (Transform child in this.transform)

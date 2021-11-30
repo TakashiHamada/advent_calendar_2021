@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
@@ -29,7 +28,6 @@ public class Pause : MonoBehaviour
 
     void Start()
     {
-        
     }
 
     private void OnDisable()

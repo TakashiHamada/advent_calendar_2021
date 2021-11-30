@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
@@ -20,8 +19,8 @@ public class EachScene : MonoBehaviour
     
     void OnEnable()
     {
-        Observable.Interval(TimeSpan.FromSeconds(0.2f))
-            .Where(_ => this.objectsRoot.childCount < 50)
+        Observable.Interval(TimeSpan.FromSeconds(0.1f))
+            .Where(_ => this.objectsRoot.childCount < 20)
             .Subscribe(_ =>
             {
                 var copy = Instantiate(this.model, this.objectsRoot);
