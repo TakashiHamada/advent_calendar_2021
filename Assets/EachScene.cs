@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class EachScene : MonoBehaviour
@@ -14,7 +15,9 @@ public class EachScene : MonoBehaviour
     void Awake()
     {
         this.objectsRoot = this.transform.Find("ROOT");
+        GetComponent<Image>().enabled = false;
     }
+    
     void OnEnable()
     {
         Observable.Interval(TimeSpan.FromSeconds(0.2f))

@@ -14,9 +14,15 @@ public class SceneManager : MonoBehaviour
             child.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
         }
     }
-    
+
     void Start()
     {
+    }
+
+    public void SwitchPause()
+    {
+        var pause = this.transform.Find("_PAUSE").gameObject;
+        pause.SetActive(!pause.activeInHierarchy);
     }
 
     public void ActivateSceneByIdx(int idx)
