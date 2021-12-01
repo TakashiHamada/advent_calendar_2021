@@ -1,35 +1,68 @@
+using UniRx;
 using UnityEngine;
 
 public class SceneManager : MonoBehaviour
 {
+    private GameObject targetState;
+
     void Awake()
     {
         foreach (Transform child in this.transform)
         {
             // すべての子供を非アクティブに
             child.gameObject.SetActive(false);
-            // 中央に集結
+            // レイアウトを中央に集結
             child.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
         }
     }
 
     void Start()
     {
-    }
-
-    // UIボタンから
-    public void SwitchPause()
-    {
-        var pause = this.transform.Find("_PAUSE").gameObject;
-        pause.SetActive(!pause.activeInHierarchy);
-    }
-
-    // UIボタンから
-    public void ActivateSceneByIdx(int idx)
-    {
-        foreach (Transform child in this.transform)
-            child.gameObject.SetActive(false);
+        // 最初の状態を指定
+        ActivateState("STATE_A");
+        
+        // 各状態が終わったときの遷移先を指定
+        Observable.EveryFixedUpdate()
+            .Select(_ => this.targetState.activeInHierarchy)
+            .DistinctUntilChanged()
+            .Where(active => !active)
+            .Select(_ => this.targetState.name)
+            .Subscribe(stateName =>
+            {
+                switch (stateName)
+                {
+                    case "STATE_A" :
+                        ActivateState("STATE_B");
+                        break;
+                    case "STATE_B" :
+                        ActivateState("STATE_C");
+                        break;
+                    case "STATE_C" :
+                        ActivateState("STATE_A");
+                        break;
+                    default:
+                        break;
+                }
+            })
+            .AddTo(this);
         // --
-        this.transform.GetChild(idx).gameObject.SetActive(true);
+        // ポーズ系（TimeScale=0のときは、動作せず）
+        Observable.EveryFixedUpdate()
+            .Where(_ => Input.GetKeyDown(KeyCode.Space))
+            .Subscribe(_ => Pause()) // Pauseは独立したStateでないので特別扱い
+            .AddTo(this);
+    }
+
+    private void ActivateState(string stateName)
+    {
+        var state = this.transform.Find(stateName).gameObject;
+        state.SetActive(true);
+        // 監視対象に
+        this.targetState = state;
+    }
+    
+    private void Pause()
+    {
+        this.transform.Find("PAUSE").gameObject.SetActive(true);
     }
 }

@@ -2,27 +2,30 @@ using System;
 using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Pause : MonoBehaviour
 {
-    [SerializeField] private Image icon;
     private List<IDisposable> disposables = new List<IDisposable>();
+
     void Awake()
     {
-        GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.1f);
     }
-    
+
     void OnEnable()
     {
+        // ポーズ開始
         Time.timeScale = 0f;
-        // --
-        Observable.Timer(TimeSpan.FromMilliseconds(16), TimeSpan.Zero, Scheduler.MainThreadIgnoreTimeScale)
-            .Subscribe(t =>
-            {
-                var alpha = (t * 0.02f) % 1f;
-                this.icon.color = new Color(1f, 1f, 1f, alpha);
-            })
+
+        // EveryUpdateはtimeScaleの影響を受けない
+        Observable.EveryUpdate()
+            .Where(_ => Input.GetKeyDown(KeyCode.Space))
+            .Subscribe(_ => this.gameObject.SetActive(false))
+            .AddTo(this.disposables);
+        
+        // クリックイベント(TimeScale=0でも動く！)
+        Observable.EveryUpdate()
+            .Where(_ => Input.GetMouseButtonDown(0))
+            .Subscribe(_ => Debug.Log(" Click! <= " + this.gameObject.name))
             .AddTo(this.disposables);
     }
 
@@ -32,6 +35,7 @@ public class Pause : MonoBehaviour
 
     private void OnDisable()
     {
+        // ポーズ解除
         Time.timeScale = 1f;
         // --
         foreach (IDisposable disposable in this.disposables)

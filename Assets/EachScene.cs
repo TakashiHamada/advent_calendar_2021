@@ -20,14 +20,24 @@ public class EachScene : MonoBehaviour
     void OnEnable()
     {
         Observable.Interval(TimeSpan.FromSeconds(0.1f))
-            .Where(_ => this.objectsRoot.childCount < 20)
+            .TakeWhile(_ => this.objectsRoot.childCount < 20)
             .Subscribe(_ =>
             {
                 var copy = Instantiate(this.model, this.objectsRoot);
                 // ランダムな位置と姿勢
                 copy.transform.position = GetRandomPosition();
                 copy.transform.rotation = Random.rotation;
+            }, () =>
+            {
+                // 自らを非表示に
+                this.gameObject.SetActive(false);
             })
+            .AddTo(this.disposables);
+        // --
+        // クリックイベント(TimeScale=0で動かず)
+        Observable.EveryFixedUpdate()
+            .Where(_ => Input.GetMouseButtonDown(0))
+            .Subscribe(_ => Debug.Log(" Click! <= " + this.gameObject.name))
             .AddTo(this.disposables);
     }
 
