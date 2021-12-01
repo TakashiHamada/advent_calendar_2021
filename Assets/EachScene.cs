@@ -35,8 +35,9 @@ public class EachScene : MonoBehaviour
             .AddTo(this.disposables);
         // --
         // クリックイベント(TimeScale=0で動かず)
-        Observable.EveryFixedUpdate()
+        Observable.EveryUpdate()
             .Where(_ => Input.GetMouseButtonDown(0))
+            .BatchFrame(0, FrameCountType.FixedUpdate) // InputはUpdateでないと正しく動かない
             .Subscribe(_ => Debug.Log(" Click! <= " + this.gameObject.name))
             .AddTo(this.disposables);
     }

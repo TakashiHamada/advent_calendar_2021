@@ -16,13 +16,6 @@ public class Pause : MonoBehaviour
         // ポーズ開始
         Time.timeScale = 0f;
 
-        // EveryUpdateはtimeScaleの影響を受けない
-        Observable.EveryUpdate()
-            .Where(_ => Input.GetKeyDown(KeyCode.Space))
-            .Subscribe(_ => this.gameObject.SetActive(false))
-            .AddTo(this.disposables);
-        
-        // クリックイベント(TimeScale=0でも動く！)
         Observable.EveryUpdate()
             .Where(_ => Input.GetMouseButtonDown(0))
             .Subscribe(_ => Debug.Log(" Click! <= " + this.gameObject.name))

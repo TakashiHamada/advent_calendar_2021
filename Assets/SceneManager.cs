@@ -47,9 +47,9 @@ public class SceneManager : MonoBehaviour
             .AddTo(this);
         // --
         // ポーズ系（TimeScale=0のときは、動作せず）
-        Observable.EveryFixedUpdate()
+        Observable.EveryUpdate()
             .Where(_ => Input.GetKeyDown(KeyCode.Space))
-            .Subscribe(_ => Pause()) // Pauseは独立したStateでないので特別扱い
+            .Subscribe(_ => SwitchPause()) // Pauseは独立したStateでないので特別扱い
             .AddTo(this);
     }
 
@@ -61,8 +61,9 @@ public class SceneManager : MonoBehaviour
         this.targetState = state;
     }
     
-    private void Pause()
+    private void SwitchPause()
     {
-        this.transform.Find("PAUSE").gameObject.SetActive(true);
+        var pause = this.transform.Find("PAUSE").gameObject;
+        pause.SetActive(!pause.activeInHierarchy);
     }
 }
