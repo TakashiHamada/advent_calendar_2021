@@ -46,6 +46,10 @@ public class EachScene : MonoBehaviour
     {
     }
 
+    void Update()
+    {
+    }
+
     private Vector3 GetRandomPosition()
     {
         return new Vector3(

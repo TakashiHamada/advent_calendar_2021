@@ -20,6 +20,14 @@ public class Pause : MonoBehaviour
             .Where(_ => Input.GetMouseButtonDown(0))
             .Subscribe(_ => Debug.Log(" Click! <= " + this.gameObject.name))
             .AddTo(this.disposables);
+        
+        // timeScale=0でも、約60fで呼び出される
+        Observable.Timer(TimeSpan.FromMilliseconds(16), TimeSpan.Zero, Scheduler.MainThreadIgnoreTimeScale)
+            .Subscribe(_ =>
+            {
+                // アニメーションの処理
+            })
+            .AddTo(this.disposables);
     }
 
     void Start()
