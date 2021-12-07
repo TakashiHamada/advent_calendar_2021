@@ -26,11 +26,9 @@ public class Parameters: ScriptableObject
     [EnumToggleButtons] [ShowIf("DebugMode")] [InfoBox("速度レベル, 0, 1, 2 => Max")]
     public int debugSpeedLevel = 0;
 
-    
-    [PropertyOrder(2)]
-    [ShowInInspector] private string param;
-    [PropertyOrder(2)]
-    [ShowInInspector] private string param2;
+
+    [PropertyOrder(99)] [AssetsOnly] [Required]
+    public ParamGeneral paramGeneral;
 
     private void Request(string key)
     {
@@ -52,8 +50,8 @@ public class Parameters: ScriptableObject
                 this.message = "Done!";
                 
                 var data2 = JsonUtility.FromJson<Data4>(x);
-                this.param = data2.hoge_key;
-                this.param2 = data2.hoge_key2;
+                this.paramGeneral.param = data2.hoge_key;
+                this.paramGeneral.param2 = data2.hoge_key2;
 
                 Observable.Timer(TimeSpan.FromSeconds(2f))
                     .Subscribe(_ => this.message = "");
