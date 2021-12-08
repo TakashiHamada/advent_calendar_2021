@@ -10,10 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4fe41bb8ab9764e1eb8412f5a5a003a2, type: 3}
-  m_Name: Parameters
+  m_Name: ParameterTool
   m_EditorClassIdentifier: 
   message: 
-  DebugMode: 0
-  DebugProMode: 0
-  debugInitCutIdx: -1
-  debugSpeedLevel: 0
+  paramGeneral: {fileID: 11400000, guid: 8c628204b6984482f960edf7dcafbb16, type: 2}
