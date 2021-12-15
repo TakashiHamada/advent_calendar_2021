@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Default Local Group
+  m_Data:
+    m_SerializedData: []
+  m_GUID: f9018740e2fd74eb4a93ac0d5b6ef6fa
+  m_SerializeEntries:
+  - m_GUID: f36e4e47b7af1fe46b31cf7e6f8ddcc2
+    m_Address: Assets/Load/Sounds/00_00_00.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b02d7f494f72ab948bafb732ea8ec48f
+    m_Address: b
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b8e5bfac9c26b6641871ad9272e84c10
+    m_Address: Assets/Load/Sounds/00_00_02.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c699dda3d3a957347982496a4eba4d7d
+    m_Address: Assets/Load/Sounds/00_00_03.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 376f53cf6a0108946bf2ff460d439ade
+    m_Address: Assets/Load/Sounds/00_00_04.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 9b07764845bd42a4f84b0f80a2c17821
+    m_Address: Assets/Load/Sounds/00_00_05.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a78274e7d20039f4fb30b328ea5e53e9
+    m_Address: Assets/Load/Sounds/00_00_06.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 0ac619e34833ece42a8625ed4dbc9e86
+    m_Address: Assets/Load/Sounds/00_00_07.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 177641577b1937740a214a53ef42a501
+    m_Address: Assets/Load/Sounds/00_00_08.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d22a615bb70c3464ab3eaf970f1dd688
+    m_Address: Assets/Load/Sounds/00_00_09.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 6eabb0f4e5fb5443eb73c8fff73432d2, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 549a8149e86744ef890f1bb62b87d5b1, type: 2}
+    - {fileID: 11400000, guid: cc2028e9c8c044a6e8b9d86c16b90009, type: 2}
