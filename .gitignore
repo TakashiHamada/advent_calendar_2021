@@ -61,3 +61,5 @@ crashlytics-build.properties
 # Hamada added
 /Assets/Plugins/Sirenix
 /Assets/Plugins/Sirenix.meta
+/Assets/Plugins/Shapes
+/Assets/Plugins/Shapes.meta
