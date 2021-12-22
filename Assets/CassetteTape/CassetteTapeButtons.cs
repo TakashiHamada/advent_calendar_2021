@@ -12,7 +12,8 @@ public class CassetteTapeButtons : MonoBehaviour
     [SerializeField] private Button btnStop;
     [SerializeField] private Button btnRewind;
     [SerializeField] private Button btnForward;
-    
+    [SerializeField] private Button btnInsertCassetteTape;
+
     private readonly Vector2 NORMAL_SIZE = new Vector2(80, 60);
     private readonly Vector2 PUSH_SIZE = new Vector2(80, 40);
 
@@ -20,6 +21,9 @@ public class CassetteTapeButtons : MonoBehaviour
     public bool IsBtnPlay => this.btnPlay.GetComponent<RectTransform>().sizeDelta == PUSH_SIZE;
     public bool IsBtnRewind => this.btnRewind.GetComponent<RectTransform>().sizeDelta == PUSH_SIZE;
     public bool IsBtnForward => this.btnForward.GetComponent<RectTransform>().sizeDelta == PUSH_SIZE;
+    public bool CanReadCassetteTape => !this.btnInsertCassetteTape.interactable;
+
+    private bool IsStopMode => !IsBtnPlay && !IsBtnRewind && !IsBtnForward;
 
     void Start()
     {
@@ -27,29 +31,33 @@ public class CassetteTapeButtons : MonoBehaviour
         this.btnPause.OnPointerDownAsObservable()
             .Subscribe(_ => Switch(this.btnPause, !IsBtnPause))
             .AddTo(this);
-        
+
         // 再生
         this.btnPlay.OnPointerDownAsObservable()
             .Subscribe(_ => Switch(this.btnPlay, true))
             .AddTo(this);
+        
         // 停止
         this.btnStop.OnPointerDownAsObservable()
             .Subscribe(_ =>
             {
-                Switch(this.btnStop, true);
-                // --
-                // Reset
-                Switch(this.btnPlay, false);
-                Switch(this.btnRewind, false);
-                Switch(this.btnForward, false);
+                if (IsStopMode)
+                {
+                    this.btnInsertCassetteTape.interactable = true;
+                }
+                else
+                {
+                    Switch(this.btnStop, true);
+                    Reset();
+                }
             })
             .AddTo(this);
-        
+
         this.btnStop.OnPointerUpAsObservable()
             .Subscribe(_ => Switch(this.btnStop, false))
             .AddTo(this);
-        
-        // Rewind
+
+        // 早送り
         this.btnRewind.OnPointerUpAsObservable()
             .Subscribe(_ =>
             {
@@ -57,7 +65,8 @@ public class CassetteTapeButtons : MonoBehaviour
                 if (IsBtnForward) Switch(this.btnForward, false);
             })
             .AddTo(this);
-        
+
+        // 巻き戻し
         this.btnForward.OnPointerUpAsObservable()
             .Subscribe(_ =>
             {
@@ -65,10 +74,26 @@ public class CassetteTapeButtons : MonoBehaviour
                 if (IsBtnRewind) Switch(this.btnRewind, false);
             })
             .AddTo(this);
+        
+        // カセットテープ入れる
+        this.btnInsertCassetteTape.OnClickAsObservable()
+            .Subscribe(_ =>
+            {
+                this.btnInsertCassetteTape.interactable = false;
+
+            })
+            .AddTo(this);
     }
 
     private void Switch(Button target, bool isPush)
     {
         target.GetComponent<RectTransform>().sizeDelta = isPush ? PUSH_SIZE : NORMAL_SIZE;
+    }
+
+    public void Reset()
+    {
+        Switch(this.btnPlay, false);
+        Switch(this.btnRewind, false);
+        Switch(this.btnForward, false);
     }
 }

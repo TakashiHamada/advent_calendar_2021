@@ -15,8 +15,27 @@ public class CassettePlayer : MonoBehaviour
     private bool isSppedyRewind = false;
     private float time;
 
+    [SerializeField] private CassetteTapeButtons buttons;
+
     void Start()
     {
+        Observable.EveryUpdate()
+            .Select(_ => this.buttons.IsBtnPlay)
+            .DistinctUntilChanged()
+            .Skip(1) // 起動の一発目は無視
+            .Subscribe(isPlay => SetPlayMode(isPlay))
+            .AddTo(this);
+        
+        Observable.EveryUpdate()
+            .Select(_ => this.buttons.IsBtnPause)
+            .DistinctUntilChanged()
+            .Skip(1) // 起動の一発目は無視
+            .Subscribe(isPause => SetPlayMode(!isPause))
+            .AddTo(this);
+            
+        
+        
+        
         this.player = GetComponent<AudioSource>();
         this.player.clip = this.clips[0];
         this.time = 0f;
@@ -50,16 +69,6 @@ public class CassettePlayer : MonoBehaviour
             .AddTo(this);
     }
 
-    public void PlayOrPause()
-    {
-        if (this.player.isPlaying)
-            this.player.Pause();
-        else
-        {
-            this.player.time = this.time;
-            this.player.Play();
-        }
-    }
 
     public void Rewind()
     {
@@ -72,6 +81,19 @@ public class CassettePlayer : MonoBehaviour
         {
             this.time = this.player.time;
             this.isSppedyRewind = true;
+        }
+    }
+
+    private void SetPlayMode(bool isPlay)
+    {
+        var player2 = GetComponent<AudioSource>();
+        if (isPlay && !this.buttons.IsBtnPause)
+        {
+            player2.Play();
+        }
+        else
+        {
+            player2.Pause();
         }
     }
 }
