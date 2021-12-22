@@ -1361,8 +1361,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clips:
-  - {fileID: 8300000, guid: b5c5832bc3ac247de8c54f07937af005, type: 3}
-  - {fileID: 8300000, guid: f18226783b6154dbdb488aa2a7e3af2b, type: 3}
+  - {fileID: 8300000, guid: 1e4ecadcb75154d78b336513887e5973, type: 3}
+  - {fileID: 8300000, guid: d0770ae50e97e4749817410086c993b0, type: 3}
   timeIndicator: {fileID: 1955334669}
   buttons: {fileID: 1420003640}
 --- !u!82 &1233679604
@@ -1376,7 +1376,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

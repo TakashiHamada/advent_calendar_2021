@@ -58,21 +58,31 @@ public class CassetteTapeButtons : MonoBehaviour
             .AddTo(this);
 
         // 早送り
-        this.btnRewind.OnPointerUpAsObservable()
+        this.btnRewind.OnPointerDownAsObservable()
             .Subscribe(_ =>
             {
                 Switch(this.btnRewind, true);
                 if (IsBtnForward) Switch(this.btnForward, false);
             })
             .AddTo(this);
+        
+        this.btnRewind.OnPointerUpAsObservable()
+            .Where(_ => IsBtnPlay)
+            .Subscribe(_ => Switch(this.btnRewind, false))
+            .AddTo(this);
 
         // 巻き戻し
-        this.btnForward.OnPointerUpAsObservable()
+        this.btnForward.OnPointerDownAsObservable()
             .Subscribe(_ =>
             {
                 Switch(this.btnForward, true);
                 if (IsBtnRewind) Switch(this.btnRewind, false);
             })
+            .AddTo(this);
+        
+        this.btnForward.OnPointerUpAsObservable()
+            .Where(_ => IsBtnPlay)
+            .Subscribe(_ => Switch(this.btnForward, false))
             .AddTo(this);
         
         // カセットテープ入れる
